@@ -33,7 +33,7 @@
                         <div class="prod-back">
                             <div class="prod-back-content" style="background-image: url('{{ produit.image[0] }}');"
                                  data-images='{{ produit.image|json_encode|raw }}' id="produit-{{ produit.id }}">
-                                <a class="prod-ville-name" href="/produit/{{ produit.id }}">
+                                <a class="prod-ville-name" href="{{ path('app_produit_show', {'id':produit.id}) }}">
                                     <strong>{{ produit.reference }}</strong>
                                 </a>
                             </div>
