@@ -1,5 +1,9 @@
 = EBoutique
 
+== Contexte
+
+Mise en place d'une eBoutique de vente de voyages
+
 == Fonctionnalités
 La base de données est hebergée avec alwaysdata.
 
@@ -36,6 +40,8 @@ doit être connecté pour valider la commande (Fonctionnel)
 - L'utilisateur doit posséder une adresse pour valider sa commande (Fonctionnel)
 
 - Reinitialisation du panier après que la commande a été validée (Fonctionnel)
+
+- Récapitulatif des commandes sur la page profil de l'utilisateur
 
 - la route /admin est accessible seulement au user qui possède le role
 admin (Fonctionnel)
