@@ -125,7 +125,7 @@
                     </div>
                     <p class="product-description">{{ produit.description }}</p>
                     <div class="add-to-cart">
-                        <form action="/produit/{{ produit.id }}/add-to-cart" method="GET">
+                        <form action="{{ path('app_produit_add_to_cart', {'id':produit.id}) }}" method="GET">
                             <div class="quantity-container">
                                 <label for="quantity" class="quantity-label">Personne(s) :</label>
                                 <select name="quantity" id="quantity" class="quantite">
