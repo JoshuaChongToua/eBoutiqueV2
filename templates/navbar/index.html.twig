@@ -1,0 +1,97 @@
+<style>
+    .navbar-bar {
+        display: flex;
+        padding: 15px;
+    }
+
+    .logo {
+        display: flex;
+        width: 20%;
+        padding-left: 15px;
+    }
+
+    .categorie {
+        display: flex;
+        width: 60%;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .profile {
+        display: flex;
+        width: 20%;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 15px;
+    }
+
+    .continent {
+        color: white;
+        text-decoration: none;
+    }
+
+    .continent:hover {
+        color: #00d4a8;
+        text-shadow: 0 0 10px #00d4a8, 0 0 20px #00d4a8;
+
+    }
+
+    .a-admin {
+        text-decoration: none;
+        color: white;
+    }
+
+    .a-admin:hover {
+        color: #00d4a8;
+        text-shadow: 0 0 10px #00d4a8, 0 0 20px #00d4a8;
+    }
+
+</style>
+
+
+<nav class="navbar-bar">
+    <div class="logo">
+        <a href="{{ path('app_home') }}" data-turbo="false">
+            <img src="{{ asset('images/logo.png') }}" alt="logo" width="110">
+        </a>
+    </div>
+
+    <div class="categorie">
+        <div><a class="continent" href="{{ path('app_get_all_produit') }}" data-turbo-action="replace">Monde</a></div>
+        {% if continents %}
+            {% for continent in continents %}
+                <div><a class="continent" href="{{ path('app_get_continent_produit' , {continent: continent.nom}) }}"
+                        data-turbo-action="replace">{{ continent.nom }}</a></div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+
+    <div class="profile">
+        {% if app.user %}
+            {% set showAdmin = false %}
+            {% for role in roles %}
+                {% if role != "ROLE_USER" %}
+                    {% set showAdmin = true %}
+                {% endif %}
+            {% endfor %}
+
+            {% if showAdmin %}
+                <a class="a-admin" href="/admin">Admin</a>
+            {% endif %}
+
+
+            <div>
+                <a href="/user/{{ app.user.id }}" data-turbo-action="replace">
+                    <img src="{{ asset('/images/user.png') }}" alt="account" width="30" height="30">
+                </a>
+            </div>
+            <a class="a-admin" href="{{ path('app_logout') }}" data-turbo-action="replace">Logout</a>
+        {% else %}
+            <a class="a-admin" href="{{ path('app_login') }}" data-turbo-action="replace">Login</a>
+        {% endif %}
+        <div>
+            <a class="a-admin" href="{{ path('app_panier') }}" data-turbo-action="replace">Panier</a>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,8 @@
+.btn-gris {
+    display: flex;
+    width: 100%;
+    border-radius: 7px;
+    border: none;
+    justify-content: center;
+    padding: 8px;
+}

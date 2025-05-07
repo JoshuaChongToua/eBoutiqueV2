@@ -1,0 +1,51 @@
+= EBoutique
+
+== Fonctionnalités
+La base de données est hebergée avec alwaysdata.
+
+(Toutes les fonctionnalités ci-dessous sont fonctionnelles)
+
+- Login (Fonctionnel)
+
+- Inscription (Fonctionnel)
+
+- Navigation par catégorie (Fonctionnel)
+
+- Parcours des articles (Fonctionnel)
+
+- Mise au panier (Fonctionnel)
+
+- Ajustements des quantités et des prix dans le panier (Fonctionnel)
+
+- Page de commande effectuée (Fonctionnel)
+
+- Ajout de nouveaux articles possible via le back office (Fonctionnel)
+
+- Ajout de nouvelles catégories possible via le back office (Fonctionnel)
+
+- Gestion des utilisateurs via le back office (Fonctionnel)
+
+- Symfony Ux Turbo pour améliorer la fluidité de l'application (Fonctionnel)
+
+- Récupération des images, pour la création des
+produits, de l'api unsplash (Fonctionnel)
+
+- L'utilisateur peut ajouter des produits dans son panier mais
+doit être connecté pour valider la commande (Fonctionnel)
+
+- L'utilisateur doit posséder une adresse pour valider sa commande (Fonctionnel)
+
+- Reinitialisation du panier après que la commande a été validée (Fonctionnel)
+
+- la route /admin est accessible seulement au user qui possède le role
+admin (Fonctionnel)
+
+- L'utilisateur connecté peut modifier les informations
+de son profil (Fonctionnel)
+
+- Renvoie sur la homepage si une url non existante est utilisée (Fonctionnel)
+
+- Récapitulatif des commandes sur la page profil du user connecté (Fonctionnel)
+
+- fonctions js pour le carrousel et les card pour le changement d'image (Fonctionnel)
+

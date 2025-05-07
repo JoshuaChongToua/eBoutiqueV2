@@ -1,0 +1,38 @@
+<div class="prod-content">
+    <div class="prod-back">
+        <div class="prod-back-content" style="background-image: url('{{ produit.image[0] }}');"
+             data-images='{{ produit.image|json_encode|raw }}' id="produit-{{ produit.id }}">
+            <a class="prod-ville-name" href="/produit/{{ produit.id }}">
+                <strong>{{ produit.reference }}</strong>
+            </a>
+        </div>
+    </div>
+
+    <div class="prod-front">
+        <div class="prod-img" style="background-image: url('{{ produit.image[1] }}');"></div>
+        <div class="prod-front-content">
+            <div class="prod-description">
+                <div class="prod-title">
+                    <p class="prod-title">
+                        <strong>{{ produit.nom }}</strong>
+                    </p>
+                </div>
+                <div class="prod-produit-description">
+                    <p class="prod-produit-description">
+                        {% if nb is defined %}
+                            {{ produit.description|slice(0, nb) ~ '...' }}
+                        {% else %}
+                            {{ produit.description|slice(0, 110) ~ '...' }}
+                        {% endif %}
+                    </p>
+                </div>
+                <p class="prod-card-footer">
+                    Total: {{ produit.prix }}€ / pers
+                </p>
+                <p class="prod-produit-description-souligne">
+                    <a href="/produit/{{ produit.id }}">Voir</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

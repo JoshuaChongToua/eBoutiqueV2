@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-images {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .main-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .thumbnail-images img {
+            width: 32%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail-images img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            padding: 20px;
+            background-color: transparent;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-name {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .product-price h4 {
+            font-size: 1.5rem;
+            color: #ff5722;
+        }
+
+        .product-description {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart form {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantite {
+            width: 60px;
+            padding: 5px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quantity-label {
+            font-size: 1rem;
+        }
+
+        .btn {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #00d4a8;
+        }
+
+
+    </style>
+
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div class="product-images">
+                    <div class="main-image">
+                        <img id="mainImage" class="img-fluid" src="{{ produit.image[0] }}" alt="Image principale du produit" >
+                    </div>
+                    <div class="thumbnail-images mt-3 d-flex justify-content-between">
+                        <img class="img-fluid" src="{{ produit.image[1] }}" alt="Image du produit" />
+                        <img class="img-fluid" src="{{ produit.image[2] }}" alt="Image du produit" />
+                        <img class="img-fluid" src="{{ produit.image[3] }}" alt="Image du produit" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <div class="product-details">
+                    <h3 class="product-name">{{ produit.nom }}</h3>
+                    <div class="product-price mb-3">
+                        <h4>{{ produit.prix }}€</h4>
+                    </div>
+                    <p class="product-description">{{ produit.description }}</p>
+                    <div class="add-to-cart">
+                        <form action="/produit/{{ produit.id }}/add-to-cart" method="GET">
+                            <div class="quantity-container">
+                                <label for="quantity" class="quantity-label">Personne(s) :</label>
+                                <select name="quantity" id="quantity" class="quantite">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <a href="{{ previousUrl }}" data-turbo-action="replace">Retour</a>
+{#    <script>#}
+{#        function changeMainImage(imageUrl) {#}
+{#            var mainImage = document.getElementById('mainImage');#}
+
+{#            mainImage.src = imageUrl;#}
+{#        }#}
+
+{#    </script>#}
+
+{% endblock %}

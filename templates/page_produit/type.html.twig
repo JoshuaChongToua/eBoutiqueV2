@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PageProduitController!{% endblock %}
+
+{% block body %}
+    <style>
+        .titre p {
+            display: flex;
+            justify-content: center;
+            font-size: 50px;
+            padding-top: 30px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="container">
+        <div class="titre">
+            {% if continent %}
+                <p>
+                    Bienvenue en {{ continent.nom }}
+                </p>
+            {% else %}
+                <p>
+                    {{ type|capitalize }}
+                </p>
+            {% endif %}
+        </div>
+        <div class="row">
+            {% for produit in produits %}
+                <div class="prod-card">
+                    <div class="prod-content">
+                        <div class="prod-back">
+                            <div class="prod-back-content" style="background-image: url('{{ produit.image[0] }}');"
+                                 data-images='{{ produit.image|json_encode|raw }}' id="produit-{{ produit.id }}">
+                                <a class="prod-ville-name" href="/produit/{{ produit.id }}">
+                                    <strong>{{ produit.reference }}</strong>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="prod-front">
+                            <div class="prod-img" style="background-image: url('{{ produit.image[1] }}');"></div>
+                            <div class="prod-front-content">
+                                <div class="prod-description">
+                                    <div class="prod-title">
+                                        <p class="prod-title">
+                                            <strong>{{ produit.nom }}</strong>
+                                        </p>
+                                    </div>
+                                    <div class="prod-produit-description">
+                                        <p class="prod-produit-description">
+                                            {{ produit.description|slice(0, 100) ~ '...' }}
+                                        </p>
+                                    </div>
+                                    <p class="prod-card-footer">
+                                        Total: {{ produit.prix }}€ / pers
+                                    </p>
+                                    <p class="prod-produit-description-souligne">
+                                        <a href="/produit/{{ produit.id }}">Voir</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll(".prod-back-content").forEach(function (element) {
+            let imagesData = element.getAttribute("data-images");
+
+            if (!imagesData) return;
+
+            let images = JSON.parse(imagesData);
+            if (!Array.isArray(images) || images.length === 0) return;
+
+            let index = 0;
+
+            // Création de 2 couches pour la transition fluide
+            let imgLayer1 = document.createElement("div");
+            let imgLayer2 = document.createElement("div");
+
+            imgLayer1.classList.add("prod-image-layer");
+            imgLayer2.classList.add("prod-image-layer");
+
+            element.appendChild(imgLayer1);
+            element.appendChild(imgLayer2);
+
+            // Initialisation de la première image
+            imgLayer1.style.backgroundImage = `url('${images[index]}')`;
+            imgLayer1.style.opacity = "1";
+            imgLayer2.style.opacity = "0";
+
+            function prechargerImage(src, callback) {
+                let img = new Image();
+                img.src = src;
+                img.onload = callback;
+            }
+
+            function changeBackground() {
+                let nextIndex = (index + 1) % images.length;
+                let nextImage = images[nextIndex];
+
+                prechargerImage(nextImage, function () {
+                    let activeLayer = imgLayer1.style.opacity === "1" ? imgLayer2 : imgLayer1;
+                    let inactiveLayer = imgLayer1.style.opacity === "1" ? imgLayer1 : imgLayer2;
+
+                    activeLayer.style.backgroundImage = `url('${nextImage}')`;
+                    activeLayer.style.opacity = "1";
+                    inactiveLayer.style.opacity = "0";
+
+                    index = nextIndex;
+                });
+            }
+
+            setInterval(changeBackground, 6000);
+        });
+
+    </script>
+
+
+{% endblock %}

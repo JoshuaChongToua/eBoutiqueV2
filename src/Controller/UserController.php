@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\CommandeRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Attribute\Route;
+
+#[Route('/user')]
+final class UserController extends AbstractController
+{
+//    #[Route(name: 'app_user_index', methods: ['GET'])]
+//    public function index(UserRepository $userRepository): Response
+//    {
+//        return $this->render('user/index.html.twig', [
+//            'users' => $userRepository->findAll(),
+//        ]);
+//    }
+
+    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(["ROLE_USER"]);
+
+            $plainPassword = $form->get('password')->getData();
+
+            if ($plainPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword);
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('user/new.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    public function show(User $user, CommandeRepository $commandeRepository): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $commandes = $commandeRepository->findBy(['user' => $this->getUser()->getId()]);
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+            'commandes' => $commandes,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, CommandeRepository $commandeRepository): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        $commandes = $commandeRepository->findBy(['user' => $this->getUser()->getId()]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('password')->getData();
+
+            if ($plainPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword);
+            }
+            $entityManager->flush();
+
+            return $this->render('user/show.html.twig', [
+                'user' => $user,
+                'editing' => false, // 🟢
+                'commandes' => $commandes,
+            ]);        }
+
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+            'editing' => true,
+            'commandes' => $commandes,
+        ]);
+    }
+
+//    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+//    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+//    {
+//        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
+//            $entityManager->remove($user);
+//            $entityManager->flush();
+//        }
+//
+//        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+//    }
+}

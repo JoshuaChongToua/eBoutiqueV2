@@ -1,0 +1,21 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+# config/routes.yaml
+
+app_panier_ajouter:
+    path: /panier/ajouter
+    controller: App\Controller\PanierController::ajouterAuPanier
+
+app_panier_retirer:
+    path: /panier/retirer
+    controller: App\Controller\PanierController::retirerDuPanier
+
+not_found_redirect:
+    path: /{any}
+    controller: App\Controller\ErrorController::redirectToHome
+    requirements:
+        any: ".*"

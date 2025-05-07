@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PageProduitController!{% endblock %}
+
+{% block body %}
+    <style>
+        .prod-card {
+            width: 100%;
+        }
+
+        .titre {
+            display: flex;
+            font-size: 50px;
+            padding-top: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            font-weight: bold;
+            justify-content: center;
+        }
+
+        .subtitle {
+            display: flex;
+            justify-content: center;
+        }
+
+        .my-5 {
+            margin-top: 15px !important;
+        }
+    </style>
+
+    <div class="container">
+        {% if tendances|length > 5 %}
+            <div class="row">
+                <p class="titre">Les Voyages Tendance à Ne Pas Manquer !</p>
+                <div class="container my-5">
+                    <div class="row">
+                        <!-- Colonne de gauche -->
+                        <div class="col-md-4 d-flex flex-column">
+                            <div class="prod-card large mb-3">
+                                {{ include('partials/produit_card.html.twig', { produit: tendances[0], nb: 320 }) }}
+                            </div>
+                            <div class="d-flex">
+                                <div class="prod-card small me-2">
+                                    {{ include('partials/produit_card.html.twig', { produit: tendances[1] }) }}
+                                </div>
+                                <div class="prod-card small">
+                                    {{ include('partials/produit_card.html.twig', { produit: tendances[2] }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Colonne du milieu -->
+                        <div class="col-md-4">
+                            <div class="prod-card large" style="height: 100%">
+                                {{ include('partials/produit_card.html.twig', { produit: tendances[3], nb: 1000 }) }}
+                            </div>
+                        </div>
+
+                        <!-- Colonne de droite -->
+                        <div class="col-md-4">
+                            <div class="prod-card horizontal mb-3">
+                                {{ include('partials/produit_card.html.twig', { produit: tendances[4], nb: 320 }) }}
+                            </div>
+                            <div class="prod-card horizontal">
+                                {{ include('partials/produit_card.html.twig', { produit: tendances[5], nb: 320 }) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if categories|length > 0 %}
+            <div class="row">
+                <p class="titre">Vous ne savez pas où partir ?</p>
+                <p class="subtitle">Découvrez ce que chaque continent vous réserve et laissez-vous surprendre par des aventures inoubliables !</p>
+                <div class="container my-5">
+                    <div class="row">
+                        <!-- Colonne 1 : Amérique du Nord & Amérique du Sud -->
+                        <div class="col-md-4 d-flex flex-column">
+                            <div class="prod-card large mb-3">
+                                {{ include('partials/categorie_card.html.twig', { produit: categories[0], nb: 320 }) }}
+                            </div>
+                            <div class="prod-card large">
+                                {{ include('partials/categorie_card.html.twig', { produit: categories[1], nb: 320 }) }}
+                            </div>
+                        </div>
+
+                        <!-- Colonne 2 : Europe & Afrique -->
+                        <div class="col-md-4 d-flex flex-column">
+                            <div class="prod-card large mb-3">
+                                {{ include('partials/categorie_card.html.twig', { produit: categories[2], nb: 320 }) }}
+                            </div>
+                            <div class="prod-card large">
+                                {{ include('partials/categorie_card.html.twig', { produit: categories[3], nb: 320 }) }}
+                            </div>
+                        </div>
+
+                        <!-- Colonne 3 : Asie & Océanie -->
+                        <div class="col-md-4 d-flex flex-column">
+                            <div class="prod-card large mb-3">
+                                {{ include('partials/categorie_card.html.twig', { produit: categories[4], nb: 320 }) }}
+                            </div>
+                            <div class="prod-card large">
+                                {{ include('partials/categorie_card.html.twig', { produit: categories[5], nb: 320 }) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <script>
+        document.querySelectorAll(".prod-back-content").forEach(function (element) {
+            let imagesData = element.getAttribute("data-images");
+
+            if (!imagesData) return;
+
+            let images = JSON.parse(imagesData);
+            if (!Array.isArray(images) || images.length === 0) return;
+
+            let index = 0;
+
+            // Création de 2 couches pour la transition fluide
+            let imgLayer1 = document.createElement("div");
+            let imgLayer2 = document.createElement("div");
+
+            imgLayer1.classList.add("prod-image-layer");
+            imgLayer2.classList.add("prod-image-layer");
+
+            element.appendChild(imgLayer1);
+            element.appendChild(imgLayer2);
+
+            // Initialisation de la première image
+            imgLayer1.style.backgroundImage = `url('${images[index]}')`;
+            imgLayer1.style.opacity = "1";
+            imgLayer2.style.opacity = "0";
+
+            function prechargerImage(src, callback) {
+                let img = new Image();
+                img.src = src;
+                img.onload = callback;
+            }
+
+            function changeBackground() {
+                let nextIndex = (index + 1) % images.length;
+                let nextImage = images[nextIndex];
+
+                prechargerImage(nextImage, function () {
+                    let activeLayer = imgLayer1.style.opacity === "1" ? imgLayer2 : imgLayer1;
+                    let inactiveLayer = imgLayer1.style.opacity === "1" ? imgLayer1 : imgLayer2;
+
+                    activeLayer.style.backgroundImage = `url('${nextImage}')`;
+                    activeLayer.style.opacity = "1";
+                    inactiveLayer.style.opacity = "0";
+
+                    index = nextIndex;
+                });
+            }
+
+            setInterval(changeBackground, 6000);
+        });
+
+    </script>
+
+
+{% endblock %}
