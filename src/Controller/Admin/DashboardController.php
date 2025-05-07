@@ -28,7 +28,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('<a href="/" style="text-decoration: none; color: inherit;">EBoutique</a>');
+            ->setTitle('<a href="{{path(\' path(\' app_home\'\')}}" style="text-decoration: none; color: inherit;">EBoutique</a>');
 
 
     }
