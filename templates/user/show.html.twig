@@ -43,47 +43,61 @@
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}" data-turbo-frame="user_{{ user.id }}">Modifier</a>
                 </div>
             {% else %}
-                <div class="card shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-primary text-white rounded-top-4">
-                        <h5 class="mb-0">Modifier l'utilisateur</h5>
-                    </div>
-                    <div class="card-body">
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card shadow-lg rounded-4">
+                                <div class="card-header bg-primary text-white rounded-top-4">
+                                    <h4 class="mb-0">Modifier le profil client</h4>
+                                </div>
+                                <div class="card-body">
 
-                        {{ form_start(form, {
-                            'action': path('app_user_edit', { id: user.id }),
-                            'attr': {
-                                'data-turbo-frame': "user_#{user.id}",
-                                'class': 'needs-validation',
-                                'novalidate': 'novalidate'
-                            }
-                        }) }}
+                                    {{ form_start(form, {
+                                        'action': path('app_user_edit', { id: user.id }),
+                                        'attr': { 'data-turbo-frame': "user_#{user.id}", 'class': 'needs-validation' }
+                                    }) }}
 
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                {{ form_row(form.prenom, {'label': 'Prénom'}) }}
+                                    <div class="mb-3">
+                                        {{ form_label(form.prenom, null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.prenom) }}
+                                    </div>
+
+                                    <div class="mb-3">
+                                        {{ form_label(form.nom, null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.nom) }}
+                                    </div>
+
+                                    <div class="mb-3">
+                                        {{ form_label(form.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.email) }}
+                                    </div>
+
+                                    <div class="mb-3">
+                                        {{ form_label(form.password, null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.password) }}
+                                    </div>
+
+                                    <div class="mb-4">
+                                        {{ form_label(form.adresse, null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.adresse) }}
+                                    </div>
+
+                                    <div class="text-end">
+                                        <button class="btn btn-primary px-4" type="submit" data-turbo="false">
+                                            <i class="bi bi-check-circle me-2"></i>Enregistrer
+                                        </button>
+                                    </div>
+
+                                    {{ form_end(form) }}
+
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                {{ form_row(form.nom, {'label': 'Nom'}) }}
-                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            {{ form_row(form.email, {'label': 'Email'}) }}
-                        </div>
-
-                        <div class="mb-3">
-                            {{ form_row(form.password, {'label': 'Mot de passe'}) }}
-                        </div>
-
-                        <div class="mb-3">
-                            {{ form_row(form.adresse, {'label': 'Adresse'}) }}
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-success" type="submit" data-turbo="false">💾 Enregistrer</button>
-                        </div>
-
-                        {{ form_end(form) }}
                     </div>
                 </div>
 
