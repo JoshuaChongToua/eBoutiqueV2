@@ -15,7 +15,7 @@
                         <table class="table table-bordered table-hover mb-0">
                             <tbody>
                             <tr>
-                                <th scope="row" class="bg-light w-50">Numéro de commande</th>
+                                <th scope="row" class="bg-light">Numéro de commande</th>
                                 <td>{{ commande.numero }}</td>
                             </tr>
                             <tr>
@@ -25,10 +25,13 @@
                             <tr>
                                 <th scope="row" class="bg-light">Produit(s)</th>
                                 <td>
-                                    {% if commande.produit %}
+                                    {% if produits is not empty %}
                                         <ul class="mb-0 ps-3">
-                                            {% for item in commande.produit|json_encode : '' %}
-                                                <li>{{ item }}</li>
+                                            {% for produit in produits %}
+                                                <li>
+                                                    <strong>{{ produit.produit }}</strong><br>
+                                                    Quantité: {{ produit.quantity }}<br>
+                                                </li>
                                             {% endfor %}
                                         </ul>
                                     {% else %}
@@ -51,6 +54,4 @@
             </div>
         </div>
     </div>
-
-
 {% endblock %}
