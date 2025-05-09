@@ -103,12 +103,11 @@ final class CommandeController extends AbstractController
     #[Route('/{id}', name: 'app_commande_show', methods: ['GET'])]
     public function show(Commande $commande): Response
     {
-        // Décoder la chaîne JSON en tableau associatif
-        $produits = json_decode($commande->getProduit(), true); // true pour obtenir un tableau associatif
+        $produits = $commande->getProduit();
 
         return $this->render('commande/show.html.twig', [
             'commande' => $commande,
-            'produits' => $produits, // Passe les produits décodés au template
+            'produits' => $produits, // Passe simplement le tableau à la vue
         ]);
     }
 
