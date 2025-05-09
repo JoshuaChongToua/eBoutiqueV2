@@ -103,12 +103,10 @@ final class CommandeController extends AbstractController
     #[Route('/{id}', name: 'app_commande_show', methods: ['GET'])]
     public function show(Commande $commande): Response
     {
-        $produits = json_decode($commande->getProduit(), true);
-
         return $this->render('commande/show.html.twig', [
             'commande' => $commande,
-            'produits' => $produits,
-        ]);
+            'produits' => $commande->getProduit(),
+            ]);
     }
 
 }
