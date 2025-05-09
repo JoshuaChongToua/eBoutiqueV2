@@ -3,27 +3,54 @@
 {% block title %}Commande{% endblock %}
 
 {% block body %}
-    <h1>Commande</h1>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg rounded-4 border-0">
+                    <div class="card-header bg-success text-white rounded-top-4">
+                        <h4 class="mb-0">🧾 Détails de la commande</h4>
+                    </div>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Numero</th>
-            <td>{{ commande.numero }}</td>
-        </tr>
-        <tr>
-            <th>Adresse</th>
-            <td>{{ commande.adresse }}</td>
-        </tr>
-        <tr>
-            <th>Produit</th>
-            <td>{{ commande.produit ? commande.produit|json_encode : '' }}</td>
-        </tr>
-        <tr>
-            <th>Prix</th>
-            <td>{{ commande.prix }} €</td>
-        </tr>
-        </tbody>
-    </table>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover mb-0">
+                            <tbody>
+                            <tr>
+                                <th scope="row" class="bg-light w-50">Numéro de commande</th>
+                                <td>{{ commande.numero }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="bg-light">Adresse de livraison</th>
+                                <td>{{ commande.adresse }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="bg-light">Produit(s)</th>
+                                <td>
+                                    {% if commande.produit %}
+                                        <ul class="mb-0 ps-3">
+                                            {% for item in commande.produit|json_decode %}
+                                                <li>{{ item }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        Aucun produit
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="bg-light">Prix total</th>
+                                <td><strong>{{ commande.prix }} €</strong></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-footer text-end bg-white rounded-bottom-4">
+                        <a href="{{ path('app_commande_index') }}" class="btn btn-outline-secondary">← Retour aux commandes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
