@@ -98,6 +98,17 @@
             background-color: #00d4a8;
         }
 
+        .retour {
+            background-color: gray;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+
+
 
     </style>
 
@@ -148,14 +159,7 @@
     </div>
 
 
-    <a href="{{ previousUrl }}" data-turbo-action="replace">Retour</a>
-{#    <script>#}
-{#        function changeMainImage(imageUrl) {#}
-{#            var mainImage = document.getElementById('mainImage');#}
+    <a class="retour" href="{{ previousUrl }}" data-turbo-action="replace">Retour</a>
 
-{#            mainImage.src = imageUrl;#}
-{#        }#}
-
-{#    </script>#}
 
 {% endblock %}
