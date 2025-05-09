@@ -105,8 +105,7 @@ final class CommandeController extends AbstractController
     {
         return $this->render('commande/show.html.twig', [
             'commande' => $commande,
-            'produits' => $commande->getProduit(),
-            ]);
+        ]);
     }
 
 }

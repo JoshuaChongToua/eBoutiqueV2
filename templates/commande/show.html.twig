@@ -25,9 +25,9 @@
                             <tr>
                                 <th scope="row" class="bg-light">Produit(s)</th>
                                 <td>
-                                    {% if produits is not empty %}
+                                    {% if commande.produit %}
                                         <ul class="mb-0 ps-3">
-                                            {% for item in produits %}
+                                            {% for item in commande.produit|json_encode : '' %}
                                                 <li>{{ item }}</li>
                                             {% endfor %}
                                         </ul>
