@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <th>Produit</th>
-            <td>{{ commande.produit}} €</td>
+            <td>{{ commande.produit ? commande.produit|json_encode : '' }}</td>
         </tr>
         <tr>
             <th>Prix</th>
