@@ -43,14 +43,50 @@
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}" data-turbo-frame="user_{{ user.id }}">Modifier</a>
                 </div>
             {% else %}
-                {{ form_start(form, { 'action': path('app_user_edit', { id: user.id }), 'data-turbo-frame': "user_#{user.id}" }) }}
-                {{ form_row(form.prenom) }}
-                {{ form_row(form.nom) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.password) }}
-                {{ form_row(form.adresse) }}
-                <button class="btn-modifier" type="submit" data-turbo="false">Enregistrer</button>
-                {{ form_end(form) }}
+                <div class="card shadow-sm rounded-4 mb-4">
+                    <div class="card-header bg-primary text-white rounded-top-4">
+                        <h5 class="mb-0">Modifier l'utilisateur</h5>
+                    </div>
+                    <div class="card-body">
+
+                        {{ form_start(form, {
+                            'action': path('app_user_edit', { id: user.id }),
+                            'attr': {
+                                'data-turbo-frame': "user_#{user.id}",
+                                'class': 'needs-validation',
+                                'novalidate': 'novalidate'
+                            }
+                        }) }}
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form_row(form.prenom, {'label': 'Prénom'}) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.nom, {'label': 'Nom'}) }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.email, {'label': 'Email'}) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.password, {'label': 'Mot de passe'}) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.adresse, {'label': 'Adresse'}) }}
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-success" type="submit" data-turbo="false">💾 Enregistrer</button>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
             {% endif %}
         </turbo-frame>
 
