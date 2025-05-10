@@ -4,6 +4,12 @@
 
 Ce projet à été réalisé par Joshua CHONG TOUA
 
+== Lien
+
+- Github : https://github.com/JoshuaChongToua/eBoutiqueV2.git
+
+- Eboutique : https://joshuact.alwaysdata.net/eboutique/
+
 == Contexte
 
 Mise en place d'une eBoutique de vente de voyages
