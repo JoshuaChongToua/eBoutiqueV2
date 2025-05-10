@@ -31,7 +31,7 @@
         }
 
         .plage, .right-block {
-            position: relative; /* Permet de positionner le texte par-dessus l'image */
+            position: relative;
             flex: 1;
             overflow: hidden;
         }
@@ -93,7 +93,7 @@
 
 
         .content__title a {
-            display: inline; /* Empêche le lien de prendre toute la largeur */
+            display: inline;
             color: inherit;
         }
 
@@ -165,3 +165,11 @@
 
 
 {% endblock %}
+{% for message in app.flashes('force_reload') %}
+    <script>
+        if (!window.location.hash.includes('#reloaded')) {
+            window.location.href = window.location.href + '#reloaded';
+            window.location.reload();
+        }
+    </script>
+{% endfor %}
