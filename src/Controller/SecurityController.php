@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,6 +25,35 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
+    public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(["ROLE_USER"]);
+
+            $plainPassword = $form->get('password')->getData();
+
+            if ($plainPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword);
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('security/register.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 
 
