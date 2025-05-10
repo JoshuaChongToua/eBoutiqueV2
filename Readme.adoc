@@ -10,6 +10,12 @@ Ce projet à été réalisé par Joshua CHONG TOUA
 
 - Eboutique : https://joshuact.alwaysdata.net/eboutique/
 
+== Identifiant des comptes
+
+- admin@mail.fr / mdp: admin
+
+- client@mail.fr / mdp: admin
+
 == Contexte
 
 Mise en place d'une eBoutique de vente de voyages
