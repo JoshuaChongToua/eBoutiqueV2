@@ -95,6 +95,35 @@ final class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/register', name: 'app_user_register', methods: ['GET', 'POST'])]
+    public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(["ROLE_USER"]);
+
+            $plainPassword = $form->get('password')->getData();
+
+            if ($plainPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword);
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('security/register.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
 //    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
 //    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
 //    {
