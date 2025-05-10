@@ -115,15 +115,15 @@
         <div class="hero__swiper swiper">
             <div class="swiper-wrapper">
                 {% for produit in produits %}
-                <div class="swiper-slide">
-                    <div class="content content--slide">
-                        <img class="content__image" src="{{ produit.image[0] }}" alt="">
-                        <div class="content__text">
-                            <h2 class="content__title"><a href="{{ path('app_produit_show', {id: produit.id}) }}">{{ produit.nom }}</a></h2>
-                            <p class="content__desc">{{ produit.description }}</p>
+                    <div class="swiper-slide">
+                        <div class="content content--slide">
+                            <img class="content__image" src="{{ produit.image[0] }}" alt="">
+                            <div class="content__text">
+                                <h2 class="content__title"><a href="{{ path('app_produit_show', {id: produit.id}) }}">{{ produit.nom }}</a></h2>
+                                <p class="content__desc">{{ produit.description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
 
