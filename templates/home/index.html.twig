@@ -31,7 +31,7 @@
         }
 
         .plage, .right-block {
-            position: relative;
+            position: relative; /* Permet de positionner le texte par-dessus l'image */
             flex: 1;
             overflow: hidden;
         }
@@ -93,7 +93,7 @@
 
 
         .content__title a {
-            display: inline;
+            display: inline; /* Empêche le lien de prendre toute la largeur */
             color: inherit;
         }
 
@@ -115,15 +115,15 @@
         <div class="hero__swiper swiper">
             <div class="swiper-wrapper">
                 {% for produit in produits %}
-                <div class="swiper-slide">
-                    <div class="content content--slide">
-                        <img class="content__image" src="{{ produit.image[0] }}" alt="">
-                        <div class="content__text">
-                            <h2 class="content__title"><a href="{{ path('app_produit_show', {id: produit.id}) }}">{{ produit.nom }}</a></h2>
-                            <p class="content__desc">{{ produit.description }}</p>
+                    <div class="swiper-slide">
+                        <div class="content content--slide">
+                            <img class="content__image" src="{{ produit.image[0] }}" alt="">
+                            <div class="content__text">
+                                <h2 class="content__title"><a href="{{ path('app_produit_show', {id: produit.id}) }}">{{ produit.nom }}</a></h2>
+                                <p class="content__desc">{{ produit.description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
 
@@ -165,11 +165,3 @@
 
 
 {% endblock %}
-{% for message in app.flashes('force_reload') %}
-    <script>
-        if (!window.location.hash.includes('#reloaded')) {
-            window.location.href = window.location.href + '#reloaded';
-            window.location.reload();
-        }
-    </script>
-{% endfor %}
