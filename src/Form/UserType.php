@@ -15,6 +15,17 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
+//            ->add('roles', ChoiceType::class, [
+//                'choices'  => [
+//                    'Utilisateur' => 'ROLE_USER',
+//                    'Administrateur' => 'ROLE_ADMIN',
+//                    'Super Admin' => 'ROLE_SUPER_ADMIN',
+//                ],
+//                'expanded' => true,  // Affiche en checkboxes
+//                'multiple' => true,  // Permet de sélectionner plusieurs rôles
+//                'label' => 'Rôles',
+//                'mapped' => true,   // S'assure que le champ est bien lié à l'entité User
+//            ])
             ->add('password', PasswordType::class)
             ->add('nom')
             ->add('prenom')

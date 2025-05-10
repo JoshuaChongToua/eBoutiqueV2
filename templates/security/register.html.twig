@@ -4,56 +4,41 @@
 
 {% block body %}
     <div class="container d-flex align-items-center justify-content-center pt-1 mt-5">
-        <div class="card shadow-lg p-4 rounded-4" style="max-width: 500px; width: 100%;">
+        <div class="card shadow-lg p-4 rounded-4" style="max-width: 400px; width: 100%;">
             <div class="card-body">
-                <h2 class="text-center mb-4 text-primary">Inscription</h2>
+                <h2 class="text-center mb-4 text-primary">Connexion</h2>
 
-                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <form method="post" novalidate>
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
 
-                <div class="mb-3">
-                    {{ form_label(form.email, 'Adresse email', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'autocomplete': 'email'}}) }}
-                    {{ form_errors(form.email) }}
-                </div>
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Adresse email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    </div>
 
-                <div class="mb-3">
-                    {{ form_label(form.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.password, {'attr': {'class': 'form-control', 'autocomplete': 'new-password'}}) }}
-                    {{ form_errors(form.password) }}
-                </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
 
-                <div class="mb-3">
-                    {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.nom) }}
-                </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                <div class="mb-3">
-                    {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.prenom) }}
-                </div>
+                    <div class="d-grid mt-4">
+                        <button class="btn btn-primary btn-lg" type="submit">
+                            Se connecter
+                        </button>
+                    </div>
 
-                <div class="mb-3">
-                    {{ form_label(form.adresse, 'Adresse', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.adresse) }}
-                </div>
-
-                <div class="d-grid mt-4">
-                    <button class="btn btn-success btn-lg" type="submit">
-                        Créer un compte
-                    </button>
-                </div>
-
-                <div class="card-footer text-end bg-white rounded-bottom-4">
-                    <a href="{{ path('app_login') }}" class="btn btn-outline-secondary">← Déjà inscrit ? Connexion</a>
-                </div>
-
-                {{ form_end(form) }}
+                    <div class="card-footer text-end bg-white rounded-bottom-4">
+                        <a href="{{ path('app_commande_index') }}" class="btn btn-outline-secondary">← Retour aux commandes</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
 
 {% endblock %}
