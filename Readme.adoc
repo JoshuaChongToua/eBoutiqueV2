@@ -41,7 +41,7 @@ doit être connecté pour valider la commande (Fonctionnel)
 
 - Reinitialisation du panier après que la commande a été validée (Fonctionnel)
 
-- Récapitulatif des commandes sur la page profil de l'utilisateur
+- Récapitulatif des commandes sur la page profil de l'utilisateur (Fonctionnel)
 
 - la route /admin est accessible seulement au user qui possède le role
 admin (Fonctionnel)
@@ -53,5 +53,5 @@ de son profil (Fonctionnel)
 
 - Récapitulatif des commandes sur la page profil du user connecté (Fonctionnel)
 
-- fonctions js pour le carrousel et les card pour le changement d'image (Fonctionnel)
+- Fonctions js pour le carrousel et les card pour le changement d'images (Fonctionnel)
 
