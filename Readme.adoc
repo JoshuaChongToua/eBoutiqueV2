@@ -1,5 +1,9 @@
 = EBoutique
 
+== Réalisé par
+
+Ce projet à été réalisé par Joshua CHONG TOUA
+
 == Contexte
 
 Mise en place d'une eBoutique de vente de voyages
